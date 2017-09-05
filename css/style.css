@@ -466,6 +466,24 @@ h4 {
     transform: scale(1);
   }
 }
+@keyframes floating {
+  from,
+  to {
+    transform: rotate(-2deg);
+  }
+  50% {
+    transform: rotate(2deg);
+  }
+}
+@keyframes floating-negative {
+  from,
+  to {
+    transform: rotate(3deg);
+  }
+  50% {
+    transform: rotate(-3deg);
+  }
+}
 /**
  * Owl Carousel v2.2.1
  * Copyright 2013-2017 David Deutsch
@@ -886,26 +904,56 @@ h4 {
   opacity: 1;
 }
 .page-header__hero {
+  position: relative;
+  background-color: #f1f1f1;
+}
+.page-header__hero .container {
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: calc(100vh - 40px);
-  background-color: #f1f1f1;
 }
 @media (min-width: 768px) {
   .page-header__hero {
     padding: 50px;
     padding-top: 90px;
-    justify-content: flex-start;
-    min-height: calc(70vh - 40px);
+    justify-content: center;
+  }
+  .page-header__hero::before,
+  .page-header__hero::after {
+    content: '';
+    position: absolute;
+    top: 20%;
+    z-index: 0;
+    transform-origin: center;
+    display: block;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+  }
+  .page-header__hero::before {
+    left: 50px;
+    width: 20vw;
+    height: 300px;
+    background-image: url('../img/fish-mob.png');
+    animation: floating 5s infinite ease-in-out;
+    animation-play-state: running;
+  }
+  .page-header__hero::after {
+    right: 5vw;
+    top: 30%;
+    width: 15vw;
+    height: 200px;
+    background-image: url('../img/fish-one.png');
+    animation: floating-negative 5s infinite ease-in-out;
+    animation-play-state: running;
   }
 }
 .page-header__message {
-  display: flex;
-  flex-flow: column wrap;
-  align-items: center;
+  position: relative;
+  z-index: 1;
   width: 90%;
-  margin: 60px auto 30px;
+  margin-top: 60px;
+  margin-bottom: 30px;
   padding: 30px 20px;
   background-color: rgba(225, 21, 0, 0.9);
   text-align: center;
@@ -913,7 +961,7 @@ h4 {
 }
 @media (min-width: 768px) {
   .page-header__message {
-    margin: 0 auto;
+    margin: 0;
     max-width: 500px;
   }
 }
